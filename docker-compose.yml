@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+    http2_php7:
+          image: php:7.1-fpm
+          container_name: http2_php7
+          expose:
+              - 9007
+#          volumes:
+#            - web:/var/www/html/web
+          tty: true
+    http2_apache:
+        build: ./docker/apache
+        container_name: http2_apache
+        ports:
+            - 90:80
+        links:
+            - http2_php7
+        volumes:
+            - web:/var/www/html
+        tty: true
+volumes:
+    web:
+      driver_opts:
+            type: none
+            device: /web
+            o: bind

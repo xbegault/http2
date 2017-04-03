@@ -1,9 +1,9 @@
-FROM httpd:2.4.23
+FROM httpd:2.4.25
 
 #RUN echo "deb http://http.debian.net/debian testing main" >> /etc/apt/sources.list.d/testing.list
 RUN echo "deb http://ftp.fr.debian.org/debian jessie non-free" >> /etc/apt/sources.list
 
-RUN export TERM=xterm
+#RUN export TERM=xterm
 
 #ADD testing /etc/apt/preferences.d/testing
 
