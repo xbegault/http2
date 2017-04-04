@@ -5,23 +5,46 @@ services:
           image: php:7.1-fpm
           container_name: http2_php7
           expose:
-              - 9007
-#          volumes:
-#            - web:/var/www/html/web
+              - 9000
+          volumes:
+            - ./web:/var/www/html/web
           tty: true
     http2_apache:
-        build: ./docker/apache
+        build: ./docker/http2_apache
         container_name: http2_apache
         ports:
             - 90:80
         links:
             - http2_php7
         volumes:
-            - web:/var/www/html
+            - ./web:/var/www/html/web
         tty: true
-volumes:
-    web:
-      driver_opts:
-            type: none
-            device: /web
-            o: bind
+    http_apache:
+        build: ./docker/http_apache
+        container_name: http_apache
+        ports:
+            - 91:80
+        links:
+            - http2_php7
+        volumes:
+            - ./web:/var/www/html/web
+        tty: true
+    http2_nginx:
+        build: ./docker/nginx
+        container_name: http2_nginx
+        ports:
+            - 92:80
+        links:
+            - http2_php7
+        volumes:
+            - ./web:/var/www/html/web
+        tty: true
+
+#volumes:
+#    web:
+##      driver: local
+#      driver_opts:
+##          source: /web
+#            type: nfs
+#            device: :/home/xavier/others/http2/web2
+#            o: bind
