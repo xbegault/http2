@@ -34,6 +34,7 @@ services:
         container_name: http2_nginx
         ports:
             - 92:80
+            - 93:443
         links:
             - http2_php7
         volumes:

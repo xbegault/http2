@@ -1,13 +1,6 @@
 FROM nginx
 
-ADD vhost.conf /etc/nginx/sites-available/
-
-
-#RUN ln -s /etc/nginx/sites-available/vhost.conf /etc/nginx/sites-enabled/vhost2
-
-#RUN rm /etc/nginx/sites-enabled/default
-
-CMD ["nginx"]
-
-EXPOSE 80
-EXPOSE 443
+ADD nginx.conf /etc/nginx/
+COPY default.conf /etc/nginx/conf.d
+COPY certs/server.crt /etc/nginx
+COPY certs/server.key /etc/nginx
